@@ -13,3 +13,5 @@ As of 03/04/24-- this is now in the design stages. I know nothing about web scra
 
 
 Stay Tuned. 
+
+03/15/24-- have decided to focus on the backend utilizing JSoup for now. 
