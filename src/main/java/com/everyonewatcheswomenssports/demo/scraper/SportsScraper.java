@@ -1,4 +1,4 @@
-package com.everyonewatcheswomenssports.demo;
+package com.everyonewatcheswomenssports.demo.scraper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
