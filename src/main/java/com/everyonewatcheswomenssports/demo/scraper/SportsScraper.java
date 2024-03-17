@@ -1,31 +1,45 @@
 package com.everyonewatcheswomenssports.demo.scraper;
 
+import com.everyonewatcheswomenssports.demo.model.SportEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SportsScraper {
-    //todo implement website/s url to scrape from. These are base outlines for setting things up for the scraper
-    //todo do we need multiple scrapers to utilize multiple websites? what is best practice here?
+    //todo potential check on the formatted time later on, may need upating if mismatched
 
-    public void scrapeSportsEvents() {
+    public List<SportEvent> scrapeSportsEvents(String url) {
+        List<SportEvent> events = new ArrayList<>();
+
         try {
-            Document doc = Jsoup.connect("").get();
-            //selecting elements using a css query
-            Elements events = doc.select(".event-details");
+            Document doc = Jsoup.connect(url).get();
 
-            for (Element event : events) {
-                String eventName = event.select(".event-name").text();
-                String eventTime = event.select(".event-time").text();
-                String eventNetwork = event.select(".event-network").text();
+            //select the container elements that include the events
+            //adjust the css query to match the structure of your target website
+            Elements eventElements = doc.select(".event-container");
 
-                System.out.println(eventName + " at " + eventTime);
+            for (Element eventElement : eventElements) {
+                //extract event details
+                String eventName = eventElement.select(".event-name").text();
+                String eventTime = eventElement.select(".event-time").text();
+                String eventNetwork = eventElement.select(".event-network").text();
+                String eventUrl = eventElement.select(".event-url a").attr("href");
 
+                //create a new SportEvent object and add it to the list
+                events.add(new SportEvent(eventName, eventTime, eventNetwork, eventUrl));
             }
         }
-        catch (Exception e) {
+        catch (IOException e) {
+            System.err.println("An error occurred while trying to connect to " + url);
             e.printStackTrace();
         }
+
+        return events;
+
     }
 }
