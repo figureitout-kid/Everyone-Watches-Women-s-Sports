@@ -16,7 +16,7 @@ public class ScraperService {
 
     public List<SportEvent> getSportsEvents() {
         try {
-            return sportsScraper.scrapeSportsEvents("https://");
+            return sportsScraper.scrapeSportsEvents("https://example.com");
         }
         catch (Exception e) {
             e.printStackTrace();

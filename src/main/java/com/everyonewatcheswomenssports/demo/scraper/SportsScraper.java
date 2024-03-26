@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Component
 public class SportsScraper {
-    //todo potential check on the formatted time later on, may need upating if mismatched
+    //todo potential check on the formatted time later on, may need updating if mismatched
 
     public List<SportEvent> scrapeSportsEvents(String url) {
         List<SportEvent> events = new ArrayList<>();
