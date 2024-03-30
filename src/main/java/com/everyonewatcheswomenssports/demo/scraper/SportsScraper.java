@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Component
 public class SportsScraper {
     //todo potential check on the formatted time later on, may need updating if mismatched
-
+    private static final Logger log = LoggerFactory.getLogger(SportsScraper.class);
     public List<SportEvent> scrapeSportsEvents(String url) {
         List<SportEvent> events = new ArrayList<>();
 
@@ -36,8 +38,7 @@ public class SportsScraper {
             }
         }
         catch (IOException e) {
-            System.err.println("An error occurred while trying to connect to " + url);
-            e.printStackTrace();
+            log.error("An error occurred while trying to connect to " + url, e);
         }
 
         return events;
