@@ -11,26 +11,26 @@ public class NcaaWomensBasketballTournamentScraper extends BaseSportsScraper {
 
     @Override
     protected String getEventContainerSelector() {
-        return ".event-container";
+        return "div.game-detail";
     }
 
     @Override
     protected String getEventNameSelector() {
-        return "h4.event-name";
+        return "span.team-names";
     }
 
     @Override
     protected String getEventTimeSelector() {
-        return ".event-time";
+        return "span.game-time";
     }
 
     @Override
     protected String getEventNetworkSelector() {
-        return ".event-network";
+        return "span.network-name";
     }
 
     @Override
     protected String getEventUrlSelector() {
-        return "a.event-link";
+        return "a.game-link";
     }
 }
