@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,6 +17,23 @@ import org.slf4j.LoggerFactory;
 public class SportsScraper {
     //todo potential check on the formatted time later on, may need updating if mismatched
     private static final Logger log = LoggerFactory.getLogger(SportsScraper.class);
+
+    @Value("${scraper.event-container-selector}")
+    private String eventContainerSelector;
+
+    @Value("${scraper.event-name-selector}")
+    private String eventNameSelector;
+
+    @Value("${scraper.event-time-selector}")
+    private String eventTimeSelector;
+
+    @Value("${scraper.event-network-selector}")
+    private String eventNetworkSelector;
+
+    @Value("${scraper.event-url-selector}")
+    private String eventUrlSelector;
+
+
     public List<SportEvent> scrapeSportsEvents(String url) {
         List<SportEvent> events = new ArrayList<>();
 
@@ -28,10 +46,10 @@ public class SportsScraper {
 
             for (Element eventElement : eventElements) {
                 //extract event details
-                String eventName = eventElement.select(".event-name").text();
-                String eventTime = eventElement.select(".event-time").text();
-                String eventNetwork = eventElement.select(".event-network").text();
-                String eventUrl = eventElement.select(".event-url a").attr("href");
+                String eventName = eventElement.select(eventNameSelector).text();
+                String eventTime = eventElement.select(eventTimeSelector).text();
+                String eventNetwork = eventElement.select(eventNetworkSelector).text();
+                String eventUrl = eventElement.select(eventUrlSelector).attr("href");
 
                 //create a new SportEvent object and add it to the list
                 events.add(new SportEvent(eventName, eventTime, eventNetwork, eventUrl));
