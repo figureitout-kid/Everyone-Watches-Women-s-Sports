@@ -29,5 +29,14 @@ public class SportEventController {
         return ResponseEntity.ok(events);
     }
 
+    @GetMapping("/scrape/cu-buffs-basketball")
+    public ResponseEntity<List<SportEvent>> scrapeCUWomensBasketball() {
+        List<SportEvent> events = scraperService.scrapeEvents("CU_WOMENS_BASKETBALL");
+        if (events.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(events);
+    }
+
 
 }
