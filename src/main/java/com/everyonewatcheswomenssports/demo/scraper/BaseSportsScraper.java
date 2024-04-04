@@ -33,10 +33,16 @@ public abstract class BaseSportsScraper {
 
             for (Element eventElement : eventElements) {
                 //extract event details
-                String eventName = eventElement.select(getEventNameSelector()).attr("title");
-                String eventTime = eventElement.select(getEventTimeSelector()).text();
-                String eventNetwork = eventElement.select(getEventNetworkSelector()).text();
+                String eventName = getEventName(eventElement);
+                String eventTime = getEventTime(eventElement);
+                String eventNetwork = getEventNetwork(eventElement);
 //                String eventUrl = eventElement.select(getEventUrlSelector()).attr("href");
+                //above is commented out, pausing on grabbing network urls right now, potentially creating a database?
+
+                //check for null or empty values and apply defaults
+                if (eventName == null || eventName.isEmpty()) eventName = "Unknown Event";
+                if (eventTime == null || eventTime.isEmpty()) eventName = "TBD";
+                if (eventNetwork == null || eventNetwork.isEmpty()) eventName = "TBD";
 
                 //create a new SportEvent object and add it to the list
                 events.add(new SportEvent(eventName, eventTime, eventNetwork));
@@ -48,6 +54,19 @@ public abstract class BaseSportsScraper {
 
         return events;
 
+    }
+
+    //Helper methods to handle extraction and null checks
+    private String getEventName(Element eventElement) {
+        return eventElement.select(getEventNameSelector()).attr("title");
+    }
+
+    private String getEventTime(Element eventElement) {
+        return eventElement.select(getEventTimeSelector()).text();
+    }
+
+    private String getEventNetwork(Element eventElement) {
+        return eventElement.select(getEventNetworkSelector()).text();
     }
 
     //abstract methods for selectors that subclasses need to implement
