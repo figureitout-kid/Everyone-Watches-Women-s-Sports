@@ -33,13 +33,13 @@ public abstract class BaseSportsScraper {
 
             for (Element eventElement : eventElements) {
                 //extract event details
-                String eventName = eventElement.select(getEventNameSelector()).text();
+                String eventName = eventElement.select(getEventNameSelector()).attr("title");
                 String eventTime = eventElement.select(getEventTimeSelector()).text();
                 String eventNetwork = eventElement.select(getEventNetworkSelector()).text();
-                String eventUrl = eventElement.select(getEventUrlSelector()).attr("href");
+//                String eventUrl = eventElement.select(getEventUrlSelector()).attr("href");
 
                 //create a new SportEvent object and add it to the list
-                events.add(new SportEvent(eventName, eventTime, eventNetwork, eventUrl));
+                events.add(new SportEvent(eventName, eventTime, eventNetwork));
             }
         }
         catch (IOException e) {
@@ -55,6 +55,6 @@ public abstract class BaseSportsScraper {
     protected abstract String getEventNameSelector();
     protected abstract String getEventTimeSelector();
     protected abstract String getEventNetworkSelector();
-    protected abstract String getEventUrlSelector();
+//    protected abstract String getEventUrlSelector();
 
 }

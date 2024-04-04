@@ -20,15 +20,14 @@ public class SportEventController {
         this.scraperService = scraperService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<SportEvent>> getAllEvents() {
-        List<SportEvent> events = scraperService.getSportsEvents();
-
-        if (events != null && !events.isEmpty()) {
-            return ResponseEntity.ok(events);
-        }
-        else {
+    @GetMapping("/scrape/ncaa-womens-basketball")
+    public ResponseEntity<List<SportEvent>> scrapeNcaaWomensBasketball() {
+        List<SportEvent> events = scraperService.scrapeEvents("NCAA_WOMENS_BASKETBALL");
+        if (events.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(events);
     }
+
+
 }

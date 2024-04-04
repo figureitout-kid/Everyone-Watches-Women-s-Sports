@@ -15,11 +15,10 @@ public class SportEvent {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     //constructor
-    public SportEvent (String eventName, String eventTimeString, String eventNetwork, String eventUrl) {
+    public SportEvent (String eventName, String eventTimeString, String eventNetwork) {
         this.eventName = eventName;
         this.eventTime = LocalDateTime.parse(eventTimeString, formatter);
         this.eventNetwork = eventNetwork;
-        this.eventUrl = eventUrl;
     }
 
     //getters and setters
@@ -61,7 +60,6 @@ public class SportEvent {
                 "eventName='" + eventName + '\'' +
                 ", eventTime='" + eventTime.format(formatter) + '\'' +
                 ", eventNetwork='" + eventNetwork + '\'' +
-                ", eventUrl='" + eventUrl + '\'' +
                 '}';
     }
 

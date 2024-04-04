@@ -1,36 +1,36 @@
 package com.everyonewatcheswomenssports.demo.scraper;
 
 import org.springframework.stereotype.Component;
-
 @Component
-public class NcaaWomensBasketballTournamentScraper extends BaseSportsScraper {
+public class CUWomensBasketballScraper extends BaseSportsScraper {
+
     @Override
     protected  String getUrl() {
-        return "https://www.ncaa.com/news/basketball-women/article/2024-04-01/2024-march-madness-womens-ncaa-tournament-schedule-dates-times";
+        return "https://cubuffs.com/sports/womens-basketball/schedule";
     }
 
     @Override
     protected String getEventContainerSelector() {
-        return "div.game-detail";
+        return "div.game-card";
     }
 
     @Override
     protected String getEventNameSelector() {
-        return "span.team-names";
+        return "a[title]";
     }
 
     @Override
     protected String getEventTimeSelector() {
-        return "span.game-time";
+        return "svg + span";
     }
 
     @Override
     protected String getEventNetworkSelector() {
-        return "span.network-name";
+        return "div.game-card_header_tv";
     }
 
 //    @Override
 //    protected String getEventUrlSelector() {
-//        return "a.game-link";
+//        return "";
 //    }
 }
