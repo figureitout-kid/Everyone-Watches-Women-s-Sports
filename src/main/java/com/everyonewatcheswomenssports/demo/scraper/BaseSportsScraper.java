@@ -23,13 +23,16 @@ public abstract class BaseSportsScraper {
     public List<SportEvent> scrapeSportsEvents() {
         List<SportEvent> events = new ArrayList<>();
         String url = getUrl();
+        log.info("Scraping events from URL: {}", url);
 
         try {
             Document doc = Jsoup.connect(url).get();
+            log.info("Connected to URL: {}", url);
 
             //select the container elements that include the events
             //adjust the css query to match the structure of your target website
             Elements eventElements = doc.select(getEventContainerSelector());
+            log.info("Found {} event elements", eventElements.size());
 
             for (Element eventElement : eventElements) {
                 //extract event details
@@ -39,13 +42,23 @@ public abstract class BaseSportsScraper {
 //                String eventUrl = eventElement.select(getEventUrlSelector()).attr("href");
                 //above is commented out, pausing on grabbing network urls right now, potentially creating a database?
 
-                //check for null or empty values and apply defaults
-                if (eventName == null || eventName.isEmpty()) eventName = "Unknown Event";
-                if (eventTime == null || eventTime.isEmpty()) eventName = "TBD";
-                if (eventNetwork == null || eventNetwork.isEmpty()) eventName = "TBD";
+//                //check for null or empty values and apply defaults
+//                if (eventName == null || eventName.isEmpty()) eventName = "Unknown Event";
+//                if (eventTime == null || eventTime.isEmpty()) eventName = "TBD";
+//                if (eventNetwork == null || eventNetwork.isEmpty()) eventName = "TBD";
+
+                if (eventName.isEmpty() || eventTime.isEmpty() || eventNetwork.isEmpty()) {
+                    log.warn("Missing event data: name={}, time={}, network={}", eventName, eventTime, eventNetwork);
+                    continue; // Skip this event
+                }
 
                 //create a new SportEvent object and add it to the list
                 events.add(new SportEvent(eventName, eventTime, eventNetwork));
+                log.info("Added event: {}", eventName);
+
+                if(events.isEmpty()) {
+                    log.warn("No events were scraped from the URL: {}", url);
+                }
             }
         }
         catch (IOException e) {
