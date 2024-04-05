@@ -20,12 +20,12 @@ public class ScraperService {
     }
 
     public List<SportEvent> scrapeEvents(String eventType) {
-        switch (eventType) {
+        switch (eventType.toUpperCase()) {
 
             case "NCAA_WOMENS_BASKETBALL" :
                 return ncaaScraper.scrapeSportsEvents();
 
-            case "CU_WOMENS_BASKETBALL " :
+            case "CU_WOMENS_BASKETBALL" :
                 return cuScraper.scrapeSportsEvents();
 
             default:
