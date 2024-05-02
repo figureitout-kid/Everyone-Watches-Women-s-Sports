@@ -11,7 +11,6 @@ As of 03/04/24-- this is now in the design stages. I know nothing about web scra
 - Would it be possible to link to the streaming service? Are there copy right rules regarding that. 
 - What exciting APIs exist out in the world to utilize?
 
+03/24/24 -- definitely leared that without having front end experience, I am running into trouble actually parsing the proper information for the events. 
 
-Stay Tuned. 
-
-03/15/24-- have decided to focus on the backend utilizing JSoup for now. 
+05/02/24 -- I am currently doing Stanford's code in place while learning basic Linux, project is on hold
